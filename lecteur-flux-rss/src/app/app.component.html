@@ -1,3 +1,8 @@
+<header>
+  <h1>{{ title }}</h1>
+  <span>{{ description }}</span>
+</header>
+
 <div class="post-card" *ngFor="let feed of feeds">
   <h2>{{feed.title|json}}</h2>
   <img [src]="feed.enclosure.link" [alt]="feed.title">
