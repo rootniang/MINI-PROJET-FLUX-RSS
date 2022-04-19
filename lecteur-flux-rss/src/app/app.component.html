@@ -3,9 +3,14 @@
   <span>{{ description }}</span>
 </header>
 
-<div class="post-card" *ngFor="let feed of feeds">
-  <h2>{{feed.title|json}}</h2>
-  <img [src]="feed.enclosure.link" [alt]="feed.title">
-  <p>{{feed.description|json}}</p>
-  <span>Date de publication {{feed.pubDate|json}}</span>
+<div class="post-card" *ngFor="let feed of feeds | paginate: { itemsPerPage: 3, currentPage: page, totalItems: totalLenght }">
+  <h2>{{feed.title}}</h2>
+  <a [href]="feed.link">
+    <img [src]="feed.enclosure.link" [alt]="feed.title">
+  </a>
+  <p>{{feed.content}}</p>
+  <span>Date de publication {{feed.pubDate}}</span>
 </div>
+<footer>
+  <pagination-controls (pageChange)="page = $event"></pagination-controls>
+</footer>
