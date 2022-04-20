@@ -3,12 +3,52 @@
   <span>{{ description }}</span>
 </header>
 
-<div class="post-card" *ngFor="let feed of feeds | paginate: { itemsPerPage: 3, currentPage: page, totalItems: totalLenght }">
-  <h2>{{feed.title}}</h2>
+<div class="post-card" *ngFor="let feed of feeds | paginate: { itemsPerPage: 3, currentPage: page, totalItems: totalLenght }; let i = index;">
+  <h2>{{feed.title}} <button type="button" class="btn btn-success" data-bs-toggle="modal" [attr.data-bs-target]="'#modal'+i">Modifier</button></h2>
+  <!-- Modal -->
+  <div class="modal fade" [id]="'modal'+i" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form (ngSubmit)="onSubmitForm()">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Nouveau Titre</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input id="title" name="title" type="text" [(ngModel)]="feed.title">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <a [href]="feed.link">
     <img [src]="feed.enclosure.link" [alt]="feed.title">
   </a>
-  <p>{{feed.content}}</p>
+  <p>{{feed.content}} <button type="button" class="btn btn-success" data-bs-toggle="modal" [attr.data-bs-target]="'#modalcontent'+i">Modifier</button></p>
+  <div class="modal fade" [id]="'modalcontent'+i" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form (ngSubmit)="onSubmitForm()">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Nouveau extrait</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <textarea id="content" name="content" type="text" [(ngModel)]="feed.content"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
   <span>Date de publication {{feed.pubDate}}</span>
 </div>
 <footer>

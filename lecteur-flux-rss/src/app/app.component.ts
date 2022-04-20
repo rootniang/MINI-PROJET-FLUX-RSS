@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   readonly url = 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.lemonde.fr%2Frss%2Fen_continu.xml';
   totalLenght : any ;
   page : number = 1 ;
-
+  varrr : string = "ps"; 
   feeds : any ;
   title! : string ;
   description! : string ;
@@ -25,6 +25,17 @@ export class AppComponent implements OnInit {
       this.title = data.feed.title ;
       this.description = data.feed.description ;
     })
+  }
+  changeTitle(post:any) {
+    post.title = "title modifer";
+  }
+
+  changeContent(post:any) {
+    post.content = "contenu modifer";
+  }
+
+  onSubmitForm() {
+    console.log("titre modifier")
   }
 
 }
